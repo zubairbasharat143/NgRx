@@ -1,0 +1,16 @@
+{
+  "posts": [
+    {
+      "id": 1746536494632,
+      "title": "title",
+      "body": "body",
+      "userId": 1
+    },
+    {
+      "id": 1746536771429,
+      "userId": 1,
+      "title": "post title",
+      "body": "post body"
+    }
+  ]
+}
