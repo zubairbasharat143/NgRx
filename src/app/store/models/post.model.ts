@@ -10,3 +10,9 @@ export interface PostsState {
   loading: boolean;
   error: any;
 }
+
+export interface UserState {
+  posts: Post[];
+  error: any;
+  loading: boolean;
+}

@@ -1,0 +1,15 @@
+<div style="display: flex; justify-content: space-between;">
+  <h1>Posts</h1>
+  <a [routerLink]="['/create-post']" class="linkBtn">Create New Post</a>
+</div>
+
+<!-- Loading Indicator -->
+<div *ngIf="loading$ | async">Loading...</div>
+
+<!-- Posts List -->
+<ul>
+  <li *ngFor="let post of posts$ | async">
+    <strong>{{ post.title }}</strong>
+    <p>{{ post.body }}</p>
+  </li>
+</ul>

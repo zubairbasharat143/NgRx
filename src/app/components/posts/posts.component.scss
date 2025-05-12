@@ -1,0 +1,11 @@
+.linkBtn {
+  height: 100%;
+  background-color: rgb(0, 0, 255);
+  color: white;
+  padding: 15px 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  &:hover {
+    background-color: rgb(0, 0, 200);
+  }
+}
