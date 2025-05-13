@@ -1,0 +1,49 @@
+<div class="user-form-container">
+  <h2>Create User</h2>
+  <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+    <!-- Name Fields -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="usr_first_name">First Name</label>
+        <input
+          id="usr_first_name"
+          formControlName="usr_first_name"
+          type="text"
+        />
+      </div>
+      <div class="form-group">
+        <label for="usr_last_name">Last Name</label>
+        <input id="usr_last_name" formControlName="usr_last_name" type="text" />
+      </div>
+    </div>
+
+    <!-- Role Radio Buttons -->
+    <div class="form-group">
+      <label>Role</label>
+      <div class="radio-group">
+        <label
+          ><input type="radio" formControlName="role" value="admin" />
+          Admin</label
+        >
+        <label
+          ><input type="radio" formControlName="role" value="user" />
+          User</label
+        >
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="usr_email_id">Email</label>
+      <input id="usr_email_id" formControlName="usr_email_id" type="email" />
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+      <label for="usr_password">Password</label>
+      <input id="usr_password" formControlName="usr_password" type="password" />
+    </div>
+
+    <button type="submit" [disabled]="userForm.invalid">Submit</button>
+  </form>
+</div>

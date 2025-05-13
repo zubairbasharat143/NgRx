@@ -2,6 +2,8 @@ import { createReducer, on } from '@ngrx/store';
 import { postsActions } from '../actions/posts.actions';
 import { PostsState } from '../models/post.model';
 
+export const postFeatureKey = 'posts';
+
 const initialState: PostsState = {
   posts: [],
   loading: false,

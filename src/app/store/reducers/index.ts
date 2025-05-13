@@ -1,14 +1,19 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { postsReducer } from './posts.reducer';
+import { postFeatureKey, postsReducer } from './posts.reducer';
 import { PostsState, UserState } from '../models/post.model';
-import { userReducer } from './user.reducer';
+import { userFeatureKey, userReducer } from './user.reducer';
 
 export interface AppState {
   users: UserState;
   posts: PostsState;
 }
 
+// export const appReducers: ActionReducerMap<AppState> = {
+//   users: userReducer,
+//   posts: postsReducer,
+// };
+
 export const appReducers: ActionReducerMap<AppState> = {
-  users: userReducer,
-  posts: postsReducer,
+  [userFeatureKey]: userReducer,
+  [postFeatureKey]: postsReducer,
 };

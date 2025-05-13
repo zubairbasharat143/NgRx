@@ -10,11 +10,11 @@ import {
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/reducers';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-post',
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.scss'],
   standalone: true,
@@ -52,10 +52,5 @@ export class CreatePostComponent {
 
       this.router.navigate(['']);
     }
-  }
-
-  logout() {
-    sessionStorage.removeItem('token');
-    this.router.navigate(['/login']);
   }
 }

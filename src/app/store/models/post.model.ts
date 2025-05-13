@@ -1,3 +1,5 @@
+import { User } from "./user.model";
+
 export interface Post {
   userId: number;
   id: number;
@@ -13,6 +15,7 @@ export interface PostsState {
 
 export interface UserState {
   posts: Post[];
+  users: User[];
   error: any;
   loading: boolean;
 }

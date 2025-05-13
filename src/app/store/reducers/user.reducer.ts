@@ -2,8 +2,11 @@ import { userActions } from '../actions/user.actions';
 import { createReducer, on } from '@ngrx/store';
 import { UserState } from '../models/post.model';
 
+export const userFeatureKey = 'users';
+
 export const initialState: UserState = {
   posts: [],
+  users: [],
   error: null,
   loading: false,
 };
@@ -11,21 +14,25 @@ export const initialState: UserState = {
 export const userReducer = createReducer(
   initialState,
 
-  on(userActions.login, state => ({
+  // Login reducers
+  on(userActions.loginSuccess, (state, { token }) => ({
     ...state,
-    loading: true,
+    token,
     error: null,
   })),
-
-  on(userActions.loginSuccess, (state, { posts }) => ({
-    ...state,
-    posts,
-    loading: false,
-  })),
-
   on(userActions.loginFailure, (state, { error }) => ({
     ...state,
-    loading: false,
     error,
-  }))
+  })),
+
+  // Create user failure (optional success)
+  on(userActions.createUserFailure, (state, { error }) => ({
+    ...state,
+    error,
+  })),
+
+  on(userActions.getAllUsersSuccess, (state, { users }) => ({
+  ...state,
+  users
+}))
 );
