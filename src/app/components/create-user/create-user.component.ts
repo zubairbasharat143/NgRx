@@ -18,7 +18,7 @@ import { Store } from '@ngrx/store';
 export class CreateUserComponent {
   userForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private store: Store) {
+  constructor(private fb: FormBuilder, private store: Store) {
     this.userForm = this.fb.group({
       usr_first_name: ['', Validators.required],
       usr_last_name: ['', Validators.required],

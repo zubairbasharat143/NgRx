@@ -5,7 +5,7 @@ import { Post } from '../store/models/post.model';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   baseUrl = 'http://localhost:3000';
 
   fetchPosts(): Observable<Post[]> {

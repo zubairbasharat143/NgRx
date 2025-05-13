@@ -13,6 +13,6 @@ export const userActions = createActionGroup({
 
     'Get All Users': emptyProps(),
     'Get All Users Success': props<{ users: User[] }>(),
-    'Get All Users Failure': props<{ error: any }>()
+    'Get All Users Failure': props<{ error: any }>(),
   },
 });

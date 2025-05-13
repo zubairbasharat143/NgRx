@@ -2,10 +2,23 @@
   <div class="nav-brand">MyApp</div>
 
   <ul class="nav-links">
-    <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
-    <li><a routerLink="/create-post" routerLinkActive="active">Create Post</a></li>
-    <li><a routerLink="/users-listing" routerLinkActive="active">Users Listing</a></li>
-    <li><a routerLink="/create-user" routerLinkActive="active">Create User</a></li>
+    <li>
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a
+      >
+    </li>
+    <li>
+      <a routerLink="/create-post" routerLinkActive="active">Create Post</a>
+    </li>
+    <li>
+      <a routerLink="/users-listing" routerLinkActive="active">Users Listing</a>
+    </li>
+    <li>
+      <a routerLink="/create-user" routerLinkActive="active">Create User</a>
+    </li>
   </ul>
 
   <button class="logout-btn" (click)="logout()">Logout</button>

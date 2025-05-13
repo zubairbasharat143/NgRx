@@ -58,8 +58,6 @@ export const UserEffects = {
         mergeMap(() =>
           authService.getAllUsers().pipe(
             map((response) => {
-              console.log(response, 'users---');
-
               // Safely extract the array from response.data and cast it
               const usersArr = response.data as User[];
 

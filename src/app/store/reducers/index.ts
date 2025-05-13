@@ -8,11 +8,6 @@ export interface AppState {
   posts: PostsState;
 }
 
-// export const appReducers: ActionReducerMap<AppState> = {
-//   users: userReducer,
-//   posts: postsReducer,
-// };
-
 export const appReducers: ActionReducerMap<AppState> = {
   [userFeatureKey]: userReducer,
   [postFeatureKey]: postsReducer,

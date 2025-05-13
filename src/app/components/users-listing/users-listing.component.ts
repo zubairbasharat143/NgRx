@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './users-listing.component.html',
-  styleUrl: './users-listing.component.scss'
+  styleUrl: './users-listing.component.scss',
 })
 export class UsersListingComponent implements OnInit, OnDestroy {
   users: User[] = [];
@@ -23,7 +23,8 @@ export class UsersListingComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(userActions.getAllUsers());
 
-    this.subscription = this.store.pipe(select(selectAllUsers))
+    this.subscription = this.store
+      .pipe(select(selectAllUsers))
       .subscribe((users) => {
         this.users = users;
       });

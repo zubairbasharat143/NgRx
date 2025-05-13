@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { userActions } from '../../store/actions/user.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/reducers';
@@ -9,28 +14,24 @@ import { AppState } from '../../store/reducers';
   imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  standalone: true
+  standalone: true,
 })
-
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private store: Store<AppState>
-  ) {
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
-  
+
   login() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       console.log('Username:', email);
       console.log('Password:', password);
-      this.store.dispatch(userActions.login({ email , password}));
+      this.store.dispatch(userActions.login({ email, password }));
     }
   }
 }

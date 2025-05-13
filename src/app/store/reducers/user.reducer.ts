@@ -32,7 +32,7 @@ export const userReducer = createReducer(
   })),
 
   on(userActions.getAllUsersSuccess, (state, { users }) => ({
-  ...state,
-  users
-}))
+    ...state,
+    users,
+  }))
 );
