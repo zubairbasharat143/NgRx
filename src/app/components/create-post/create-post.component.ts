@@ -53,4 +53,9 @@ export class CreatePostComponent {
       this.router.navigate(['']);
     }
   }
+
+  logout() {
+    sessionStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
 }

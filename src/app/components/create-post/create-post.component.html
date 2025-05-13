@@ -1,4 +1,7 @@
-<h1>Create Post</h1>
+<div style="display: flex; justify-content: space-between">
+  <h1 style="margin-top: 0;">Create Post</h1>
+  <button class="linkBtn" (click)="logout()">Logout</button>
+</div>
 
 <!-- Create Post Form -->
 <form [formGroup]="postForm" (ngSubmit)="createPost()">
@@ -8,7 +11,10 @@
   </div>
   <div>
     <label>Body:</label>
-    <textarea formControlName="body" placeholder="Enter post content"></textarea>
+    <textarea
+      formControlName="body"
+      placeholder="Enter post content"
+    ></textarea>
   </div>
   <button type="submit" [disabled]="postForm.invalid">Create Post</button>
 </form>

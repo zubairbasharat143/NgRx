@@ -5,24 +5,29 @@ import { AppState } from '../../store/reducers';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Post } from '../../store/models/post.model';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss',
-  standalone:true
+  standalone: true,
 })
 export class PostsComponent {
   posts$: Observable<Post[]>;
   loading$: Observable<boolean>;
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private router: Router) {
     this.posts$ = this.store.select((state) => state.posts.posts);
     this.loading$ = this.store.select((state) => state.posts.loading);
   }
 
   ngOnInit(): void {
     this.store.dispatch(postsActions.loadPosts());
+  }
+
+  logout() {
+    sessionStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }
