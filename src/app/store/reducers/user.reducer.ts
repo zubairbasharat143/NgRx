@@ -9,6 +9,7 @@ export const initialState: UserState = {
   users: [],
   error: null,
   loading: false,
+  token: '',
 };
 
 export const userReducer = createReducer(
@@ -34,5 +35,12 @@ export const userReducer = createReducer(
   on(userActions.getAllUsersSuccess, (state, { users }) => ({
     ...state,
     users,
+  })),
+
+  on(userActions.updateUserSuccess, (state, { user }) => ({
+    ...state,
+    users: state.users.map((u) =>
+      u.usr_id_pk === user.usr_id_pk ? { ...u, ...user } : u
+    ),
   }))
 );

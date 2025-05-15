@@ -1,4 +1,9 @@
-<h1>Users Listing</h1>
+<div style="display: flex; justify-content: space-between">
+  <h1>Users Listing</h1>
+  <div style="display: flex; align-items: center">
+    <button class="linkBtn" [routerLink]="['/create-user']">Create User</button>
+  </div>
+</div>
 <div class="users-listing-container">
   <table class="users-table">
     <thead>
@@ -7,6 +12,7 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email Address</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -16,6 +22,16 @@
         <td>{{ user.usr_first_name }}</td>
         <td>{{ user.usr_last_name }}</td>
         <td>{{ user.usr_email_id }}</td>
+        <td>
+          <div style="display: flex; gap: 12px">
+            <div style="cursor: pointer" (click)="editUser(user.usr_id_pk)">
+              <mat-icon>edit</mat-icon>
+            </div>
+            <div style="cursor: pointer" (click)="deleteUser(user.usr_id_pk)">
+              <mat-icon>delete</mat-icon>
+            </div>
+          </div>
+        </td>
       </tr>
       }
     </tbody>

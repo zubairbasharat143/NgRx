@@ -1,16 +1,25 @@
-<h1>Create Post</h1>
-<!-- Create Post Form -->
-<form [formGroup]="postForm" (ngSubmit)="createPost()">
-  <div>
-    <label>Title:</label>
-    <input formControlName="title" placeholder="Enter post title" />
-  </div>
-  <div>
-    <label>Body:</label>
-    <textarea
-      formControlName="body"
-      placeholder="Enter post content"
-    ></textarea>
-  </div>
-  <button type="submit" [disabled]="postForm.invalid">Create Post</button>
-</form>
+<div
+  style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  "
+>
+  <h1>Create Post</h1>
+  <!-- Create Post Form -->
+  <form [formGroup]="postForm" (ngSubmit)="createPost()">
+    <div>
+      <label>Title:</label>
+      <input formControlName="title" placeholder="Enter post title" />
+    </div>
+    <div>
+      <label>Body:</label>
+      <textarea
+        formControlName="body"
+        placeholder="Enter post content"
+      ></textarea>
+    </div>
+    <button type="submit" [disabled]="postForm.invalid">Create Post</button>
+  </form>
+</div>

@@ -17,6 +17,7 @@ export const routes: Routes = [
       { path: 'create-post', component: CreatePostComponent },
       { path: 'users-listing', component: UsersListingComponent },
       { path: 'create-user', component: CreateUserComponent },
+      { path: 'edit-user/:id', component: CreateUserComponent },
     ],
   },
   { path: 'login', component: LoginComponent },

@@ -30,7 +30,11 @@ export const UserEffects = {
   ),
 
   createUser: createEffect(
-    (actions$ = inject(Actions), authService = inject(AuthService)) => {
+    (
+      actions$ = inject(Actions),
+      authService = inject(AuthService),
+      router = inject(Router)
+    ) => {
       return actions$.pipe(
         ofType(userActions.createUser),
         mergeMap(({ user }) => {
@@ -38,7 +42,7 @@ export const UserEffects = {
           return authService.createUser(user, token).pipe(
             tap((response) => {
               console.log('User Created:', response);
-              // Optionally, show a toast or trigger navigation
+              router.navigate(['/users-listing']);
             }),
             catchError((error) => {
               console.error('User creation failed:', error);
@@ -64,6 +68,32 @@ export const UserEffects = {
               return userActions.getAllUsersSuccess({ users: usersArr });
             }),
             catchError((error) => of(userActions.getAllUsersFailure({ error })))
+          )
+        )
+      );
+    },
+    { functional: true }
+  ),
+
+  updateUser: createEffect(
+    (
+      actions$ = inject(Actions),
+      authService = inject(AuthService),
+      router = inject(Router)
+    ) => {
+      return actions$.pipe(
+        ofType(userActions.updateUser),
+        mergeMap(({ user }) =>
+          authService.updateUser(user).pipe(
+            map((response) => {
+              console.log('User updated successfully:', response);
+              router.navigate(['/users-listing']);
+              return userActions.updateUserSuccess({ user: response.data });
+            }),
+            catchError((error) => {
+              console.error('User update failed:', error);
+              return of(userActions.updateUserFailure({ error }));
+            })
           )
         )
       );

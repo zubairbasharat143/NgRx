@@ -31,4 +31,22 @@ export class AuthService {
       headers: { 'x-access-token': `JWT ${token}` || '' },
     });
   }
+
+  updateUser(user: any): Observable<any> {
+    const token = sessionStorage.getItem('token');
+
+    // Clone the user and add userId key with usr_id_pk value
+    const { usr_id_pk, role, ...rest } = user;
+
+    const payload = {
+      ...rest,
+      usr_id: usr_id_pk,
+    };
+
+    return this.http.put(`${this.baseUrl}/update`, payload, {
+      headers: {
+        'x-access-token': `JWT ${token}` || '',
+      },
+    });
+  }
 }

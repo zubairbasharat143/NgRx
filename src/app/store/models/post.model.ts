@@ -18,4 +18,5 @@ export interface UserState {
   users: User[];
   error: any;
   loading: boolean;
+  token?: string;
 }

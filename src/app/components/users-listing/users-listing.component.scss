@@ -34,3 +34,18 @@
     }
   }
 }
+
+.linkBtn {
+  background-color: rgb(255, 204, 0);
+  color: rgb(43, 51, 63);
+  padding: 10px;
+  height: 40px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: rgb(255, 191, 0);
+  }
+}

@@ -7,6 +7,9 @@ import {
 } from '@angular/forms';
 import { userActions } from '../../store/actions/user.actions';
 import { Store } from '@ngrx/store';
+import { ActivatedRoute } from '@angular/router';
+import { User } from '../../store/models/user.model';
+import { selectUserById } from '../../store/selectors/user.selectors';
 
 @Component({
   selector: 'app-create-user',
@@ -16,30 +19,64 @@ import { Store } from '@ngrx/store';
   standalone: true,
 })
 export class CreateUserComponent {
-  userForm: FormGroup;
+  userForm!: FormGroup;
+  isEdit = false;
+  editingUserId: number | null = null;
 
-  constructor(private fb: FormBuilder, private store: Store) {
-    this.userForm = this.fb.group({
-      usr_first_name: ['', Validators.required],
-      usr_last_name: ['', Validators.required],
-      role: ['user', Validators.required], // default to 'user'
-      usr_email_id: ['', [Validators.required, Validators.email]],
-      usr_password: ['', Validators.required],
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private store: Store
+  ) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id) {
+        this.isEdit = true;
+        this.editingUserId = +id;
+      }
+
+      this.userForm = this.fb.group({
+        usr_first_name: ['', Validators.required],
+        usr_last_name: ['', Validators.required],
+        role: ['', Validators.required],
+        usr_email_id: ['', [Validators.required, Validators.email]],
+        usr_password: ['', this.isEdit ? [] : [Validators.required]],
+      });
+
+      if (this.isEdit && this.editingUserId !== null) {
+        this.store
+          .select(selectUserById(this.editingUserId))
+          .subscribe((user: User | undefined) => {
+            if (user) {
+              this.userForm.patchValue(user);
+            }
+          });
+      }
     });
   }
 
   submitForm() {
     if (this.userForm.valid) {
-      const formData = this.userForm.value;
-      const usr_login_id = Date.now().toString(); // Generate login_id
+      let formData = this.userForm.value;
 
-      const userPayload = {
-        usr_login_id,
-        ...formData,
-      };
+      if (this.isEdit && this.editingUserId !== null) {
+        // Remove password if it's blank or untouched
+        if (!formData.usr_password) {
+          const { usr_password, ...rest } = formData;
+          formData = rest;
+        }
 
-      console.log('Submitted User:', userPayload);
-      this.store.dispatch(userActions.createUser({ user: userPayload }));
+        const payload = { usr_id_pk: this.editingUserId, ...formData };
+        this.store.dispatch(userActions.updateUser({ user: payload }));
+      } else {
+        const payload = {
+          usr_login_id: Date.now().toString(),
+          ...formData,
+        };
+        this.store.dispatch(userActions.createUser({ user: payload }));
+      }
     }
   }
 }

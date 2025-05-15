@@ -14,5 +14,9 @@ export const userActions = createActionGroup({
     'Get All Users': emptyProps(),
     'Get All Users Success': props<{ users: User[] }>(),
     'Get All Users Failure': props<{ error: any }>(),
+
+    'Update User': props<{ user: any }>(),
+    'Update User Success': props<{ user: User }>(),
+    'Update User Failure': props<{ error: any }>(),
   },
 });
