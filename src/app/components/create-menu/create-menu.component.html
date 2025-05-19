@@ -1,0 +1,106 @@
+<div class="menu-form-container">
+  <h2>{{ isEdit ? "Edit" : "Create" }} Menu</h2>
+
+  <form [formGroup]="menuForm" (ngSubmit)="onSubmit()">
+    <!-- Menu Name Fields -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="menuNameEn">Menu Name *</label>
+        <input
+          id="menuNameEn"
+          type="text"
+          formControlName="menuNameEn"
+          placeholder="Please enter here"
+        />
+        <div
+          class="error"
+          *ngIf="
+            menuForm.get('menuNameEn')?.touched &&
+            menuForm.get('menuNameEn')?.hasError('required')
+          "
+        >
+          Menu Name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="menuNameAr" class="label-ar">اسم القائمة بالعربي *</label>
+        <input
+          id="menuNameAr"
+          type="text"
+          formControlName="menuNameAr"
+          placeholder="Please enter here"
+          class="label-ar"
+        />
+        <div class="error" *ngIf="menuForm.get('menuNameAr')?.touched">
+          <div *ngIf="menuForm.get('menuNameAr')?.hasError('required')">
+            Arabic Menu Name is required
+          </div>
+          <div *ngIf="menuForm.get('menuNameAr')?.hasError('arabicInvalid')">
+            {{ menuForm.get("menuNameAr")?.getError("arabicInvalid") }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu Description Fields -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="menuDescriptionEn">Menu Description *</label>
+        <input
+          id="menuDescriptionEn"
+          type="text"
+          formControlName="menuDescriptionEn"
+          placeholder="Please enter here"
+        />
+        <div
+          class="error"
+          *ngIf="
+            menuForm.get('menuDescriptionEn')?.touched &&
+            menuForm.get('menuDescriptionEn')?.hasError('required')
+          "
+        >
+          Menu Description is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="menuDescriptionAr" class="label-ar"
+          >وصف القائمة بالعربي *</label
+        >
+        <input
+          id="menuDescriptionAr"
+          type="text"
+          formControlName="menuDescriptionAr"
+          placeholder="Please enter here"
+          class="label-ar"
+        />
+        <div class="error" *ngIf="menuForm.get('menuDescriptionAr')?.touched">
+          <div *ngIf="menuForm.get('menuDescriptionAr')?.hasError('required')">
+            Arabic Menu Description is required
+          </div>
+          <div
+            *ngIf="menuForm.get('menuDescriptionAr')?.hasError('arabicInvalid')"
+          >
+            {{ menuForm.get("menuDescriptionAr")?.getError("arabicInvalid") }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Security Tag -->
+    <div class="form-group">
+      <label for="securityTag">Security Tag</label>
+      <input
+        id="securityTag"
+        type="text"
+        formControlName="securityTag"
+        placeholder="Security_tag_name"
+      />
+    </div>
+
+    <button type="submit" [disabled]="menuForm.invalid">
+      {{ isEdit ? "Update" : "Save" }}
+    </button>
+  </form>
+</div>

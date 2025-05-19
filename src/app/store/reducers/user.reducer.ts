@@ -19,7 +19,6 @@ export const userReducer = createReducer(
   on(userActions.loginSuccess, (state, { token }) => ({
     ...state,
     token,
-    error: null,
   })),
   on(userActions.loginFailure, (state, { error }) => ({
     ...state,

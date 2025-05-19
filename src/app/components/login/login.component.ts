@@ -29,8 +29,6 @@ export class LoginComponent {
   login() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      console.log('Username:', email);
-      console.log('Password:', password);
       this.store.dispatch(userActions.login({ email, password }));
     }
   }
