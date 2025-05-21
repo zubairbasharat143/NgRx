@@ -44,6 +44,24 @@ export const menusReducer = createReducer(
     error,
   })),
 
+  // updateMenu
+  on(menusActions.updateMenu, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(menusActions.updateMenuSuccess, (state, { menu }) => ({
+    ...state,
+    loading: false,
+    menus: state.menus.map((m: any) =>
+      m.menu_id === menu.menu_id ? { ...m, ...menu } : m
+    ),
+  })),
+  on(menusActions.updateMenuFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error,
+  })),
+
   // deleteMenu
   on(menusActions.deleteMenu, (state) => ({
     ...state,

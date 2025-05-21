@@ -10,6 +10,8 @@ import {
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { menusActions } from '../../store/actions/menu.actions';
+import { ActivatedRoute, Router } from '@angular/router';
+import { selectMenuById } from '../../store/selectors/menus.selectors';
 
 @Component({
   selector: 'app-create-menu',
@@ -18,10 +20,18 @@ import { menusActions } from '../../store/actions/menu.actions';
   styleUrl: './create-menu.component.scss',
 })
 export class CreateMenuComponent {
+  menuForm!: FormGroup;
   isEdit: boolean = false;
-  menuForm: FormGroup;
+  editingMenuId: number | null = null;
 
-  constructor(private fb: FormBuilder, private store: Store) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
     this.menuForm = this.fb.group({
       menuNameEn: ['', Validators.required],
       menuDescriptionEn: ['', Validators.required],
@@ -45,6 +55,32 @@ export class CreateMenuComponent {
       ],
       securityTag: [''],
     });
+
+    this.menuForm.get('menuNameEn')?.valueChanges.subscribe(() => {
+      this.securityTagVal();
+    });
+
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id) {
+        this.isEdit = true;
+        this.editingMenuId = +id;
+
+        this.store
+          .select(selectMenuById(this.editingMenuId))
+          .subscribe((menu: any | undefined) => {
+            if (menu) {
+              this.menuForm.patchValue({
+                menuNameEn: menu.menu_name,
+                menuDescriptionEn: menu.menu_desc,
+                menuNameAr: menu.ar_menu_name,
+                menuDescriptionAr: menu.ar_menu_desc,
+                securityTag: menu.security_tag,
+              });
+            }
+          });
+      }
+    });
   }
 
   // Custom Arabic Validator
@@ -57,6 +93,14 @@ export class CreateMenuComponent {
     };
   }
 
+  securityTagVal() {
+    const menuName = this.menuForm.get('menuNameEn')?.value;
+    const securityTag = menuName
+      ? menuName.replace(/\s+/g, '_').toLowerCase()
+      : '';
+    this.menuForm.patchValue({ securityTag });
+  }
+
   onSubmit(): void {
     if (this.menuForm.valid) {
       const payload = {
@@ -64,14 +108,20 @@ export class CreateMenuComponent {
         menu_desc: this.menuForm.value.menuDescriptionEn,
         ar_menu_name: this.menuForm.value.menuNameAr,
         ar_menu_desc: this.menuForm.value.menuDescriptionAr,
-        security_tag: this.menuForm.value.menuNameEn,
+        security_tag: this.menuForm.value.securityTag,
         menu_status: 'active',
       };
-      this.store.dispatch(menusActions.createMenu({ menu: payload }));
+      if (this.isEdit && this.editingMenuId !== null) {
+        this.store.dispatch(
+          menusActions.updateMenu({ id: this.editingMenuId, menu: payload })
+        );
+      } else {
+        this.store.dispatch(menusActions.createMenu({ menu: payload }));
+      }
       this.menuForm.reset();
+      this.router.navigate(['/menus']);
     } else {
       console.log('Form Invalid');
     }
   }
-  
 }

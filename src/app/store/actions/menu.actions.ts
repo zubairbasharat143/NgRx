@@ -11,6 +11,10 @@ export const menusActions = createActionGroup({
     'Create Menu Success': props<{ menu: any }>(),
     'Create Menu Failure': props<{ error: any }>(),
 
+    'Update Menu': props<{ id: number; menu: any }>(),
+    'Update Menu Success': props<{ menu: any }>(),
+    'Update Menu Failure': props<{ error: any }>(),
+
     'Delete Menu': props<{ menuId: number }>(),
     'Delete Menu Success': props<{ menuId: number }>(),
     'Delete Menu Failure': props<{ error: any }>(),

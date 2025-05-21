@@ -22,6 +22,7 @@ export const routes: Routes = [
       { path: 'edit-user/:id', component: CreateUserComponent },
       { path: 'menus', component: MenusComponent },
       { path: 'create-menu', component: CreateMenuComponent },
+      { path: 'edit-menu/:id', component: CreateMenuComponent },
     ],
   },
   { path: 'login', component: LoginComponent },

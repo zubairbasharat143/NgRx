@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { Subscription } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -17,7 +17,7 @@ export class MenusComponent implements OnInit {
   menus: any[] = [];
   private subscription!: Subscription;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     this.store.dispatch(menusActions.loadMenus());
@@ -28,6 +28,10 @@ export class MenusComponent implements OnInit {
         console.log('Menus:', menus);
         this.menus = menus;
       });
+  }
+
+  editMenu(menuId: number): void {
+    this.router.navigate([`/edit-menu/${menuId}`]);
   }
 
   deleteMenu(menuId: number): void {

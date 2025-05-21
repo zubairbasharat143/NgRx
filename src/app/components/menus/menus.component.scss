@@ -20,12 +20,8 @@
     }
 
     tbody tr {
-      &:hover {
-        background-color: #f1f3fa;
-      }
-
       &:nth-child(even) {
-        background-color: #ffffff;
+        background-color: #fdfcfc;
       }
     }
 

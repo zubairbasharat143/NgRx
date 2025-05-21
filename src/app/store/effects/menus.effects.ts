@@ -11,7 +11,9 @@ export const MenusEffects = {
         ofType(menusActions.loadMenus),
         mergeMap(() =>
           menusService.getMenus().pipe(
-            map((response) => menusActions.loadMenusSuccess({ menus:response.data })),
+            map((response) =>
+              menusActions.loadMenusSuccess({ menus: response.data })
+            ),
             catchError((error) => of(menusActions.loadMenusFailure({ error })))
           )
         )
@@ -29,11 +31,26 @@ export const MenusEffects = {
             map((response) =>
               menusActions.createMenuSuccess({ menu: response.data })
             ),
-            catchError((error) =>
-              of(menusActions.createMenuFailure({ error }))
-            )
+            catchError((error) => of(menusActions.createMenuFailure({ error })))
           )
         )
+      );
+    },
+    { functional: true }
+  ),
+
+  updateMenu: createEffect(
+    (actions$ = inject(Actions), menusService = inject(MenusService)) => {
+      return actions$.pipe(
+        ofType(menusActions.updateMenu),
+        mergeMap(({ id, menu }) => {
+          return menusService.updateMenu(id, menu).pipe(
+            map((response) =>
+              menusActions.updateMenuSuccess({ menu: response.data })
+            ),
+            catchError((error) => of(menusActions.updateMenuFailure({ error })))
+          );
+        })
       );
     },
     { functional: true }
@@ -46,9 +63,7 @@ export const MenusEffects = {
         mergeMap(({ menuId }) =>
           menusService.deleteMenu(menuId).pipe(
             map(() => menusActions.deleteMenuSuccess({ menuId })),
-            catchError((error) =>
-              of(menusActions.deleteMenuFailure({ error }))
-            )
+            catchError((error) => of(menusActions.deleteMenuFailure({ error })))
           )
         )
       );

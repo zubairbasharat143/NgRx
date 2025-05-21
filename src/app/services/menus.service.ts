@@ -23,6 +23,13 @@ export class MenusService {
     });
   }
 
+  updateMenu(id: number, payload: any) {
+    const token = sessionStorage.getItem('token');
+    return this.http.put<any>(`${this.baseUrl}/menus/update/${id}`, payload, {
+      headers: { 'x-access-token': `JWT ${token}` || '' },
+    });
+  }
+
   deleteMenu(id: number) {
     const token = sessionStorage.getItem('token');
     return this.http.delete<any>(`${this.baseUrl}/menus/delete/${id}`, {
