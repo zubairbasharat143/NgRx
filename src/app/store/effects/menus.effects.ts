@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MenusService } from '../../services/menus.service';
-import { catchError, map, mergeMap, of } from 'rxjs';
+import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import { menusActions } from '../actions/menu.actions';
 
 export const MenusEffects = {
@@ -64,6 +64,29 @@ export const MenusEffects = {
           menusService.deleteMenu(menuId).pipe(
             map(() => menusActions.deleteMenuSuccess({ menuId })),
             catchError((error) => of(menusActions.deleteMenuFailure({ error })))
+          )
+        )
+      );
+    },
+    { functional: true }
+  ),
+
+  assignMenu: createEffect(
+    (actions$ = inject(Actions), menusService = inject(MenusService)) => {
+      return actions$.pipe(
+        ofType(menusActions.assignMenu),
+        mergeMap(({ payload, callback }) =>
+          menusService.assignMenu(payload).pipe(
+            tap(() => {
+              callback('success', 'Menu Assigned successfully');
+            }),
+            catchError((error) => {
+              callback(
+                'error',
+                error?.error?.meta?.message || 'Assignment failed'
+              );
+              return of();
+            })
           )
         )
       );

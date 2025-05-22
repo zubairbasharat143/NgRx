@@ -18,5 +18,10 @@ export const menusActions = createActionGroup({
     'Delete Menu': props<{ menuId: number }>(),
     'Delete Menu Success': props<{ menuId: number }>(),
     'Delete Menu Failure': props<{ error: any }>(),
+
+    'Assign Menu': props<{
+      payload: { menu_id: number; userIds: number[] };
+      callback: (status: string, message: string) => void;
+    }>(),
   },
 });

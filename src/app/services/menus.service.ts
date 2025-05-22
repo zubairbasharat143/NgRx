@@ -36,4 +36,11 @@ export class MenusService {
       headers: { 'x-access-token': `JWT ${token}` || '' },
     });
   }
+
+  assignMenu(payload: any) {
+    const token = sessionStorage.getItem('token');
+    return this.http.post<any>(`${this.baseUrl}/menu/assign`, payload, {
+      headers: { 'x-access-token': `JWT ${token}` || '' },
+    });
+  }
 }

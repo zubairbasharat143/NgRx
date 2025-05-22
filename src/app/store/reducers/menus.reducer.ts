@@ -76,5 +76,11 @@ export const menusReducer = createReducer(
     ...state,
     loading: false,
     error,
-  }))
+  })),
+
+  // assignMenu
+  on(menusActions.assignMenu, (state) => ({
+    ...state,
+    loading: true,
+  })),
 );
