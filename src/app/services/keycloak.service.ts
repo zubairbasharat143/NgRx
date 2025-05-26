@@ -5,7 +5,7 @@ import Keycloak from 'keycloak-js';
 export class KeycloakService {
   private keycloak = new Keycloak({
     url: 'http://localhost:8080',
-    realm: 'NEC_REALM',
+    realm: 'NEC realm',
     clientId: 'NEC_CLIENT_ID',
   });
 
