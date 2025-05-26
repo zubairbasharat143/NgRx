@@ -8,11 +8,7 @@ const keycloakService = new KeycloakService();
 keycloakService
   .init()
   .then(() => {
-    if (!keycloakService.isLoggedIn()) {
-      keycloakService.login(); // Redirects — no need to return
-      return; // Exit early
-    }
-
+    // Always bootstrap the app, regardless of login state.
     return bootstrapApplication(AppComponent, {
       providers: [
         ...appConfig.providers!,
@@ -23,6 +19,3 @@ keycloakService
   .catch((err) => {
     console.error('Keycloak initialization failed', err);
   });
-
-// bootstrapApplication(AppComponent, appConfig)
-//   .catch((err) => console.error(err));
