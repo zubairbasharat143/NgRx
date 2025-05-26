@@ -11,6 +11,6 @@ import { RouterModule } from '@angular/router';
 export class NavbarComponent {
   logout() {
     sessionStorage.removeItem('token');
-    location.reload(); // Or navigate to login
+    location.reload();
   }
 }

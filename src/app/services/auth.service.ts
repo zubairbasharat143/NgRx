@@ -16,7 +16,7 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const token = sessionStorage.getItem('token');
-    return !!token; // true if token exists
+    return !!token;
   }
 
   createUser(userData: any, token: string): Observable<any> {
@@ -26,27 +26,16 @@ export class AuthService {
   }
 
   getAllUsers(): Observable<{ data: User[] }> {
-    const token = sessionStorage.getItem('token');
-    return this.http.get<{ data: User[] }>(`${this.baseUrl}/getADusers`, {
-      headers: { 'x-access-token': `JWT ${token}` || '' },
-    });
+    return this.http.get<{ data: User[] }>(`${this.baseUrl}/getADusers`);
   }
 
   updateUser(user: any): Observable<any> {
-    const token = sessionStorage.getItem('token');
-
-    // Clone the user and add userId key with usr_id_pk value
     const { usr_id_pk, role, ...rest } = user;
-
     const payload = {
       ...rest,
       usr_id: usr_id_pk,
     };
 
-    return this.http.put(`${this.baseUrl}/update`, payload, {
-      headers: {
-        'x-access-token': `JWT ${token}` || '',
-      },
-    });
+    return this.http.put(`${this.baseUrl}/update`, payload);
   }
 }
