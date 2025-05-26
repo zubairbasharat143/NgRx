@@ -4,7 +4,7 @@ import Keycloak from 'keycloak-js';
 @Injectable({ providedIn: 'root' })
 export class KeycloakService {
   private keycloak = new Keycloak({
-    url: 'http://192.168.1.10:8080/',
+    url: 'http://localhost:8080',
     realm: 'NEC_REALM',
     clientId: 'NEC_CLIENT_ID',
   });
