@@ -8,6 +8,7 @@ import {
 import { userActions } from '../../store/actions/user.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/reducers';
+import { KeycloakService } from '../../services/keycloak.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,11 @@ import { AppState } from '../../store/reducers';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<AppState>,
+    private keycloakService: KeycloakService
+  ) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
@@ -31,5 +36,9 @@ export class LoginComponent {
       const { email, password } = this.loginForm.value;
       this.store.dispatch(userActions.login({ email, password }));
     }
+  }
+
+  keycloakLogin() {
+    this.keycloakService.login(); // Triggers redirect to Keycloak login
   }
 }
